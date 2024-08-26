@@ -12,7 +12,7 @@ https://github.com/user-attachments/assets/b9b9ca0f-b1b8-4e0f-a9fa-e14e464deda1
 
 Packer:
 
-```(lua)
+``` lua
 use "e-mar404/tooltip"
 ```
 
@@ -26,7 +26,7 @@ I have keymaps set up for each language (prob will add a function to figure out 
 
 Ex. 
 
-```(lua) 
+``` lua
 local tooltip = require("tooltip")
 
 -- js-tooltip
