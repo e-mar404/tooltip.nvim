@@ -5,8 +5,8 @@ tooltip to display output of files
 Note: since it uses lua Neovim >= 0.5 is required
 
 ## Demo
+https://github.com/user-attachments/assets/b9b9ca0f-b1b8-4e0f-a9fa-e14e464deda1
 
-https://github.com/user-attachments/assets/30ed471d-812d-4916-9ef6-48f90ae9c55c
 
 ## Installation
 
