@@ -30,4 +30,8 @@ M.run = function (command)
   vim.api.nvim_open_win(output_buffer, true, opts)
 end
 
+M.file_name = function ()
+  return vim.api.nvim_buf_get_name(0)
+end
+
 return M
