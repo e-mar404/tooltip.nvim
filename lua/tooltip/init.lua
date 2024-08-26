@@ -1,5 +1,6 @@
 local M = {}
 
+
 M.run = function (command)
   local output_buffer = vim.api.nvim_create_buf(false, true)
 
@@ -15,14 +16,14 @@ M.run = function (command)
     on_stderr = write_buf,
   })
 
-  local lines = vim.api.nvim_buf_get_lines(output_buffer, 0, -1, false)
+  local num_lines = tonumber(vim.fn.system({ "wc", "-l", vim.fn.expand("%") }):match("%d+"))
 
   local opts = {
     relative = "cursor",
     row = 1,
     col = 0,
-    width = 80,
-    height = #(lines) + 1,
+    width = 30,
+    height = num_lines + 1,
     anchor = "NW",
     style = "minimal",
   }
