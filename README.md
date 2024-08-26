@@ -4,6 +4,10 @@ tooltip to display output of files
 
 Note: since it uses lua Neovim >= 0.5 is required
 
+## Demo
+
+https://github.com/user-attachments/assets/30ed471d-812d-4916-9ef6-48f90ae9c55c
+
 ## Installation
 
 Packer:
