@@ -2,7 +2,7 @@
 
 tooltip to display output of files
 
-Note: since it uses lua Neovim >= .7 is required
+Note: since it uses lua Neovim >= 0.5 is required
 
 ## Installation
 
