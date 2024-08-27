@@ -1,4 +1,4 @@
-# em-tooltip.nvim
+# tooltip.nvim
 
 tooltip to display output of files
 
@@ -22,24 +22,22 @@ There are 2 parts that will need to be configured for each language:
 1. getting the file that will be executed
 2. call run function that will execute said file and put all stdout (or stderr) into a floating window where the cursor is
 
-I have keymaps set up for each language (prob will add a function to figure out the file and run command depending on file extension and it can just be one universal keymap)
-
+To set up a language the file extention and the command to execute will have to be added to the patterns opt through the setuup function. See bellow for the pattern and keymap examples of javascript and ruby.
 Ex. 
 
 ``` lua
 local tooltip = require("tooltip")
 
--- js-tooltip
-vim.keymap.set("n", "<leader>js", function()
-    local file = tooltip.file_name()
+tooltip.setup({
+  patterns = {
+    [".js"] = "node %s",
+    [".rb"] = "ruby %s",
+    -- ["file extenstion"] = "command to execute" (%s) will be replaced by the file path
+  },
+})
 
-    tooltip.run({ "node", file })
-end)
-
--- ruby-tooltip
-vim.keymap.set("n", "<leader>rb", function()
-    local file = tooltip.file_name()
-
-    tooltip.run({ "ruby", file })
+-- universal-tooltip keymap (run program)
+vim.keymap.set('n', '<leader>rp', function ()
+    tooltip.show()
 end)
 ```
