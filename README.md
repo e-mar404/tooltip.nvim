@@ -18,7 +18,7 @@ use "e-mar404/tooltip"
 
 ## Setup
 
-There are 2 parts that will need to be configured for each language:
+There are 2 parts that will need to be configured before using the plugin:
 1. Set up a pattern for the command that will execute each file extension
 2. call the `show()` function that will take the current file, see if there is a pattern set up for it and then execute it. After execution the stdout (or stderr) will be outputed in a new floating window where the cursor is at.
 
