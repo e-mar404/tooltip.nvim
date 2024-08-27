@@ -18,7 +18,7 @@ M.command_from_file = function (file)
 end
 
 M.run = function (command)
-  local output_buffer = vim.api.nvim_create_buf(false, true)
+  local output_buffer = tonumber(vim.api.nvim_create_buf(true, true))
 
   local write_buf = function (_, data)
     if data then
@@ -32,35 +32,45 @@ M.run = function (command)
     on_stderr = write_buf,
   })
 
-  return tonumber(output_buffer)
+  return output_buffer
 end
 
 M.open_win = function (output_buffer)
-  local num_lines = tonumber(vim.fn.system({ "wc", "-l", vim.fn.expand("%") }):match("%d+"))
-
   local opts = {
     relative = "cursor",
     row = 1,
     col = 0,
     width = 30,
-    height = num_lines + 1,
+    height = 1,
     anchor = "NW",
     style = "minimal",
   }
 
+  -- TODO: find a way to resize window after it opened
   vim.api.nvim_open_win(output_buffer, true, opts)
+
 end
 
-M.file_name = function ()
-  return vim.api.nvim_buf_get_name(0)
+M.resize = function ()
+  local win_id = vim.api.nvim_get_current_win()
+  local num_lines = vim.api.nvim_buf_line_count(0)
+
+  vim.api.nvim_win_set_height(win_id, num_lines)
+end
+
+M.file_name = function (output_buffer)
+  return vim.api.nvim_buf_get_name(output_buffer)
 end
 
 M.show = function ()
-  local file = M.file_name()
+  local file = M.file_name(0)
   local command = M.command_from_file(file)
   local output_buffer = M.run(command)
 
   M.open_win(output_buffer)
+
+  -- TODO: does not seem to run properly, if it is run manually it works
+  M.resize()
 end
 
 return M
