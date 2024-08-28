@@ -41,7 +41,7 @@ M.open_win = function (output_buffer)
     row = 1,
     col = 0,
     width = 30,
-    height = 1,
+    height = 5,
     anchor = "NW",
     style = "minimal",
   }

@@ -16,6 +16,10 @@ Packer:
 use "e-mar404/tooltip"
 ```
 
+## Documentation
+
+See `:help tooltip.nvim`
+
 ## Setup
 
 There are 2 parts that will need to be configured before using the plugin:

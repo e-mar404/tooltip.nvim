@@ -1,0 +1,44 @@
+
+===============================================================================
+                                                                *tooltip.nvim*
+
+This plugin will output in a floating window any stdout or stderr of the current file when it is
+ran. See examples below:
+
+                                                             *tooltip.setup()*
+tooltip.setup({config})
+
+  This is the initial function where the command to be executed for each file extension will be defined.
+
+  Parameters: ~
+  - {config}  Map defining the config for tooltips. Keys:
+              - patterns: Map with the file extension as the key and the
+                command to be ran as the value.
+                  Note: the value representing the command will be formated 
+                  following regular c printf rules, replacing the %s with the file to be
+                  run. >
+
+    Example.
+    
+    tooltip.setup({
+      patterns = {
+        [".js"] = "node %s",
+        [".rb"] = "ruby %s",
+      },
+    })
+<
+
+                                                              *tooltip.show()*
+tooltip.show()
+  
+  Will get the current file in the buffer of the current window get the
+  command to execute it (if set up with `tooltip.setup()`), run the command
+  and output to stdout/stderr to a buffer and then show that buffer at the pos
+  the cursor is at.
+
+  Return: ~
+  
+  - If a command is not set up for the current file pattern, an error will
+    show up saying so. Otherwise it will return nil.
+
+vim:tw=78:ts=8:ft=help:norl:

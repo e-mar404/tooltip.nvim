@@ -1,0 +1,10 @@
+Tests to be done
+
+// set up
+✓ canary test
+
+// command from file
+- able to get command given a file that has a pattern set up
+- able to get command given a file with a path that has multiple "."
+- return error when getting a command for file that does not have a pattern set up yet
+
