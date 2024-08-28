@@ -34,7 +34,7 @@ tooltip.setup({
   patterns = {
     ['.js'] = 'node %s',
     ['.rb'] = 'ruby %s',
-    -- ['file extenstion'] = 'command to execute' (%s) will be replaced by the file path
+    -- ['file extenstion'] = 'command_to_execute %s' (%s) will be replaced by the file path
   },
 })
 
