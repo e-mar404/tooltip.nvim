@@ -47,6 +47,7 @@ M.open_win = function (output_buffer)
   }
 
   -- TODO: find a way to resize window after it opened
+
   vim.api.nvim_open_win(output_buffer, true, opts)
 
 end
@@ -68,9 +69,6 @@ M.show = function ()
   local output_buffer = M.run(command)
 
   M.open_win(output_buffer)
-
-  -- TODO: does not seem to run properly, if it is run manually it works
-  M.resize()
 end
 
 return M
