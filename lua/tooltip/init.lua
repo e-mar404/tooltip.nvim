@@ -1,5 +1,6 @@
-local M = {}
+local util = require 'tooltip.util'
 
+local M = {}
 local patterns = {}
 
 M.setup = function (config)
@@ -54,26 +55,31 @@ M._open_win = function (output_buffer)
     style = 'minimal',
   }
 
-  -- TODO: find a way to resize window after it opened
+  local win_id = vim.api.nvim_open_win(output_buffer, true, opts)
 
-  vim.api.nvim_open_win(output_buffer, true, opts)
+  local resize = function ()
+    local num_lines = vim.api.nvim_buf_line_count(output_buffer)
 
-end
+    print(num_lines)
 
-M._file_name = function (output_buffer)
-  return vim.api.nvim_buf_get_name(output_buffer)
-end
+    vim.api.nvim_win_set_height(win_id, num_lines)
+  end
 
-M.show = function ()
-  local file = M._file_name(0)
-  local command = M._command_for_file(file)
-  local output_buffer = M._run(command)
-
-  M._open_win(output_buffer)
+  -- TODO: is there a better way to resize window?? 
+  -- (one that does not need to defer the function)
+  vim.defer_fn(resize, 100)
 end
 
 M._clear = function ()
   patterns = {}
+end
+
+M.show = function ()
+  local file = util._file_name(0)
+  local command = M._command_for_file(file)
+  local output_buffer = M._run(command)
+
+  M._open_win(output_buffer)
 end
 
 return M
