@@ -13,7 +13,7 @@ https://github.com/user-attachments/assets/b9b9ca0f-b1b8-4e0f-a9fa-e14e464deda1
 Packer:
 
 ``` lua
-use "e-mar404/tooltip"
+use 'e-mar404/tooltip'
 ```
 
 ## Documentation
@@ -28,13 +28,13 @@ There are 2 parts that will need to be configured before using the plugin:
 
 Ex. 
 ``` lua
-local tooltip = require("tooltip")
+local tooltip = require('tooltip')
 
 tooltip.setup({
   patterns = {
-    [".js"] = "node %s",
-    [".rb"] = "ruby %s",
-    -- ["file extenstion"] = "command to execute" (%s) will be replaced by the file path
+    ['.js'] = 'node %s',
+    ['.rb'] = 'ruby %s',
+    -- ['file extenstion'] = 'command to execute' (%s) will be replaced by the file path
   },
 })
 

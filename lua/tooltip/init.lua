@@ -2,14 +2,22 @@ local M = {}
 
 local patterns = {}
 
-M.setup = function (opts)
-  patterns = opts["patterns"]
+M.setup = function (config)
+  patterns = config['patterns']
 end
 
-M.command_from_file = function (file)
-  local delimeter_pos = string.find(file, "%.") or -1
+M._command_for_file = function (file)
+  local file_type
+  for extension in string.gmatch(file, '%.(%w+)') do
+    file_type = string.format('.%s', extension)
+    print(file_type)
+  end
 
-  local file_type = string.sub(file, delimeter_pos)
+  local pattern = patterns[file_type]
+
+  if not pattern then
+    error('command pattern not set up for this file extension')
+  end
 
   local fmt_string = string.format(patterns[file_type], file)
   print(fmt_string)
@@ -17,7 +25,7 @@ M.command_from_file = function (file)
   return fmt_string
 end
 
-M.run = function (command)
+M._run = function (command)
   local output_buffer = tonumber(vim.api.nvim_create_buf(true, true))
 
   local write_buf = function (_, data)
@@ -35,15 +43,15 @@ M.run = function (command)
   return output_buffer
 end
 
-M.open_win = function (output_buffer)
+M._open_win = function (output_buffer)
   local opts = {
-    relative = "cursor",
+    relative = 'cursor',
     row = 1,
     col = 0,
     width = 30,
     height = 5,
-    anchor = "NW",
-    style = "minimal",
+    anchor = 'NW',
+    style = 'minimal',
   }
 
   -- TODO: find a way to resize window after it opened
@@ -52,23 +60,20 @@ M.open_win = function (output_buffer)
 
 end
 
-M.resize = function ()
-  local win_id = vim.api.nvim_get_current_win()
-  local num_lines = vim.api.nvim_buf_line_count(0)
-
-  vim.api.nvim_win_set_height(win_id, num_lines)
-end
-
-M.file_name = function (output_buffer)
+M._file_name = function (output_buffer)
   return vim.api.nvim_buf_get_name(output_buffer)
 end
 
 M.show = function ()
-  local file = M.file_name(0)
-  local command = M.command_from_file(file)
-  local output_buffer = M.run(command)
+  local file = M._file_name(0)
+  local command = M._command_for_file(file)
+  local output_buffer = M._run(command)
 
-  M.open_win(output_buffer)
+  M._open_win(output_buffer)
+end
+
+M._clear = function ()
+  patterns = {}
 end
 
 return M

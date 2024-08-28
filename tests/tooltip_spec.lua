@@ -1,6 +1,6 @@
-describe("tooltip", function ()
+describe('tooltip', function ()
   -- canary test
-  it("can be required", function ()
-    require "tooltip"
+  it('can be required', function ()
+    require 'tooltip'
   end)
 end)
