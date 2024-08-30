@@ -9,3 +9,7 @@ Tests to be done
 ✓ return command given a file with extension pattern set up and a path that has multiple "."
 ✓ return error given a file with extension pattern not set up and a path that has multiple "."
 
+// table of
+✓ gets an empty string and returns a table with a single empty string 
+✓ defaults to using the space as separator
+✓ is able to separate by new lines
