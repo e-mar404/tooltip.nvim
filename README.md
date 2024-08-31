@@ -5,7 +5,9 @@ tooltip to display output of files
 Note: since it uses lua Neovim >= 0.5 is required
 
 ## Demo
-https://github.com/user-attachments/assets/b9b9ca0f-b1b8-4e0f-a9fa-e14e464deda1
+
+https://github.com/user-attachments/assets/48294cba-a14b-44f7-bad9-750294b83a73
+
 
 
 ## Installation
@@ -34,6 +36,7 @@ tooltip.setup({
   patterns = {
     ['.js'] = 'node %s',
     ['.rb'] = 'ruby %s',
+    ['.go'] = 'go run %s',
     -- ['file extenstion'] = 'command_to_execute %s' (%s) will be replaced by the file path
   },
 })
