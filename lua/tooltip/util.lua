@@ -46,4 +46,14 @@ util._command_for_file = function (file, patterns)
   return fmt_string
 end
 
+util._longest_line = function (lines)
+  local longest = -1
+
+  for _, line in pairs(lines) do
+    longest = math.max(longest, string.len(line))
+  end
+
+  return longest
+end
+
 return util

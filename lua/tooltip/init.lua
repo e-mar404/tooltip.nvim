@@ -22,14 +22,16 @@ M._run = function (command)
 end
 
 M._open_win = function (output_buffer)
-  local line_num = vim.api.nvim_buf_line_count(output_buffer)
+  local lines = vim.api.nvim_buf_get_lines(output_buffer, 0, -1, true)
+  local width = util._longest_line(lines)
+  local height = vim.api.nvim_buf_line_count(output_buffer)
 
   local opts = {
     relative = 'cursor',
     row = 1,
     col = 0,
-    width = 30,
-    height = line_num,
+    width = width,
+    height = height,
     anchor = 'NW',
     style = 'minimal',
   }
