@@ -41,4 +41,13 @@ tooltip.show()
   - If a command is not set up for the current file pattern, an error will
     show up saying so. Otherwise it will return nil.
 
+                                                             *tooltip.close()*
+tooltip.close() 
+
+  Will close the window and delete the buffer that was used to show the output
+  of the program. 
+
+  Note: `<leader>q` is automatically added as a keymap to the buffer to call
+  this function.
+
 vim:tw=78:ts=8:ft=help:norl:

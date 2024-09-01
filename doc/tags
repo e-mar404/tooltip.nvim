@@ -1,3 +1,4 @@
+tooltip.close()	tooltip.txt	/*tooltip.close()*
 tooltip.nvim	tooltip.txt	/*tooltip.nvim*
 tooltip.setup()	tooltip.txt	/*tooltip.setup()*
 tooltip.show()	tooltip.txt	/*tooltip.show()*
