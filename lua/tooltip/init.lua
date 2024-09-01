@@ -4,9 +4,11 @@ local M = {}
 local patterns = {}
 local output_buffer
 local win_id
+local styled = false
 
 M.setup = function (config)
   patterns = config['patterns']
+  styled = config['styled']
 end
 
 M._run = function (command)
@@ -26,7 +28,7 @@ M._open_win = function ()
   local width = util._longest_line(lines)
   local height = vim.api.nvim_buf_line_count(output_buffer)
 
-  local opts = {
+  local config = {
     relative = 'cursor',
     row = 1,
     col = 0,
@@ -34,9 +36,11 @@ M._open_win = function ()
     height = height,
     anchor = 'NW',
     style = 'minimal',
+    border = styled and 'rounded' or 'none',
+    title = styled and 'output' or '',
   }
 
-  win_id = vim.api.nvim_open_win(output_buffer, true, opts)
+  win_id = vim.api.nvim_open_win(output_buffer, true, config)
 end
 
 

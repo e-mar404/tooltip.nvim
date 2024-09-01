@@ -12,11 +12,13 @@ tooltip.setup({config})
 
   Parameters: ~
   - {config}  Map defining the config for tooltips. Keys:
-              - patterns: Map with the file extension as the key and the
+              - patterns: (Map) with the file extension as the key and the
                 command to be ran as the value.
                   Note: the value representing the command will be formated 
                   following regular c printf rules, replacing the %s with the file to be
-                  run. >
+                  run. 
+              - styled: (Boolean) that will set the window border `rounded` and title
+                `output` >
 
     Example.
     
