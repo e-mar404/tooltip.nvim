@@ -25,7 +25,7 @@ end
 
 M._open_win = function ()
   local lines = vim.api.nvim_buf_get_lines(output_buffer, 0, -1, true)
-  local width = util._longest_line(lines)
+  local width = math.max(util._longest_line(lines), 6)
   local height = vim.api.nvim_buf_line_count(output_buffer)
 
   local config = {
