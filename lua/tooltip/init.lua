@@ -49,7 +49,7 @@ M.show = function ()
   local command = util._command_for_file(file, patterns)
   M._run(command)
 
-  vim.api.nvim_buf_set_keymap(output_buffer, 'n', '<leader>q', '', {
+  vim.api.nvim_buf_set_keymap(output_buffer, 'n', 'q', '', {
     callback = function ()
       require('tooltip').close()
     end

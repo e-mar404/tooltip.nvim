@@ -49,7 +49,7 @@ tooltip.close()
   Will close the window and delete the buffer that was used to show the output
   of the program. 
 
-  Note: `<leader>q` is automatically added as a keymap to the buffer to call
+  Note: `q` is automatically added as a keymap to the buffer to call
   this function.
 
 vim:tw=78:ts=8:ft=help:norl:
