@@ -21,6 +21,7 @@ M._run = function (command)
   }):wait()
 
   util._write_to_buf(output_buffer, obj.stdout)
+  util._write_to_buf(output_buffer, obj.stderr, true)
 end
 
 M._open_win = function ()

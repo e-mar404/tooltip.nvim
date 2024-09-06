@@ -13,19 +13,20 @@ util._table_of = function (data, separator)
 
   local t = {}
 
-  for str in string.gmatch(data, "([^"..separator.."]+)") do
+  for str in string.gmatch(data, '([^'..separator..']+)') do
     table.insert(t, str)
   end
 
   return t
 end
 
-util._write_to_buf = function (output_buffer, data)
-  local trimmed_data = string.sub(vim.inspect(data), 2, -2)
+util._write_to_buf = function (output_buffer, data, append)
+  local separator = '\n'
+  local lines = util._table_of(data, separator)
 
-  local lines = util._table_of(trimmed_data, '\\n')
+  local start = append and -1 or 0
 
-  vim.api.nvim_buf_set_lines(output_buffer, 0, -1, true, lines)
+  vim.api.nvim_buf_set_lines(output_buffer, start, -1, true, lines)
 end
 
 util._command_for_file = function (file, patterns)
