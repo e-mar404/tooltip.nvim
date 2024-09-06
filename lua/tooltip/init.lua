@@ -20,8 +20,16 @@ M._run = function (command)
     text = true,
   }):wait()
 
-  util._write_to_buf(output_buffer, obj.stdout)
-  util._write_to_buf(output_buffer, obj.stderr, true)
+  local has_stdout = obj.stdout ~= ''
+  local has_strerr = obj.stderr ~= ''
+
+  if has_stdout then
+    util._write_to_buf(output_buffer, obj.stdout)
+  end
+
+  if has_strerr then
+    util._write_to_buf(output_buffer, obj.stderr, has_stdout)
+  end
 end
 
 M._open_win = function ()
