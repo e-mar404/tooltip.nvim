@@ -24,7 +24,6 @@ util._trim_trailing_newline = function (str)
   return str:gsub('\n$', '')
 end
 
-
 util._command_for_file = function (file, patterns)
   local file_type
   for extension in string.gmatch(file, '%.(%w+)') do
