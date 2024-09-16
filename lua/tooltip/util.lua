@@ -20,14 +20,10 @@ util._table_of = function (data, separator)
   return t
 end
 
-util._write_to_buf = function (output_buffer, data, append)
-  local separator = '\n'
-  local lines = util._table_of(data, separator)
-
-  local start = append and -1 or 0
-
-  vim.api.nvim_buf_set_lines(output_buffer, start, -1, true, lines)
+util._trim_trailing_newline = function (str)
+  return str:gsub('\n$', '')
 end
+
 
 util._command_for_file = function (file, patterns)
   local file_type
