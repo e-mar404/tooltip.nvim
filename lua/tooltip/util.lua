@@ -1,5 +1,15 @@
 local util = {}
 
+util._default_file_patterns = {
+  ['.js'] = 'node %s',
+  ['.rb'] = 'ruby %s',
+  ['.go'] = 'go run %s',
+  ['.erl'] = 'escript %s',
+  ['.scala'] = 'scala %s',
+  ['.clj'] = 'clojure -M %s',
+  ['.lua'] = 'lua %s',
+}
+
 util._file_name = function (output_buffer)
   return vim.api.nvim_buf_get_name(output_buffer)
 end

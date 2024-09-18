@@ -13,7 +13,7 @@ M.win_config = {
 }
 
 M.setup = function (config)
-  M.patterns = config['patterns'] or {}
+  M.patterns = util._defaul_file_patterns
   M.styled = config['styled'] or false
 
   M.win_config.title = M.styled and 'output' or ''
@@ -31,13 +31,11 @@ M._run = function (command)
 
   local obj = vim.system(command_table, {
     text = true,
+    detach = true,
   }):wait()
 
-  local stdout_trimmed = util._trim_trailing_newline(obj.stdout)
-  local stderr_trimmed = util._trim_trailing_newline(obj.stderr)
-
-  vim.api.nvim_chan_send(M.term_id, stdout_trimmed)
-  vim.api.nvim_chan_send(M.term_id, stderr_trimmed)
+  vim.api.nvim_chan_send(M.term_id, obj.stdout)
+  vim.api.nvim_chan_send(M.term_id, obj.stderr)
 end
 
 M._resize = function ()
@@ -52,26 +50,29 @@ M._resize = function ()
 end
 
 M.show = function ()
+  vim.cmd('w')
+
   local file = util._file_name(0)
   local command = util._command_for_file(file, M.patterns)
 
   M._open_win()
   M._run(command)
 
-  -- this is needed to let the output finish sending to terminal channel
+  -- this is needed to let the output finish sending to terminal channel if there are issues then change the delay
+  local delayMS = 5
   vim.defer_fn(function()
     if vim.api.nvim_win_is_valid(M.win_id) then
       M._resize()
     end
-  end, 1)
+  end, delayMS)
 
   vim.api.nvim_buf_set_keymap(M.output_buffer, 'n', 'q', '', {
     callback = function ()
       require('tooltip').close()
     end
   })
-
 end
+
 
 M.close = function ()
   vim.api.nvim_win_close(M.win_id, true)
