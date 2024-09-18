@@ -57,7 +57,7 @@ This plugin comes with default mappings so there is as little set up as possible
 |'.js'       |'node %s'       |
 |'.rb'       |'ruby %s'       |
 |'.go'       |'go run %s'     |
-|'.erl'      |'escrip|'       |
+|'.erl'      |'escript %s'    |
 |'.scala'    |'scala %s'      |
 |'.clj'      | 'clojure -M %s'|
 |'.lua'      |'lua %s'        |
