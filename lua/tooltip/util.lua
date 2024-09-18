@@ -1,6 +1,6 @@
 local util = {}
 
-util._default_mappings = {
+util._default_file_patterns = {
   ['.js'] = 'node %s',
   ['.rb'] = 'ruby %s',
   ['.go'] = 'go run %s',

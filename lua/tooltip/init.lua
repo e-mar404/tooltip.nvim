@@ -13,7 +13,7 @@ M.win_config = {
 }
 
 M.setup = function (config)
-  M.patterns = util._default_mappings
+  M.patterns = util._defaul_file_patterns
   M.styled = config['styled'] or false
 
   M.win_config.title = M.styled and 'output' or ''
