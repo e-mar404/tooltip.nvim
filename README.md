@@ -38,6 +38,7 @@ tooltip.setup({
     ['.rb'] = 'ruby %s',
     ['.go'] = 'go run %s',
     -- ['file extenstion'] = 'command_to_execute %s' (%s) will be replaced by the file path
+    -- what is set up here will override the default mappings
   },
 })
 
@@ -46,3 +47,18 @@ vim.keymap.set('n', '<leader>rp', function ()
     tooltip.show()
 end)
 ```
+
+### Default Mappings
+
+This plugin comes with default mappings so there is as little set up as possible. If you do find your self needing to override the command that gets executed with each file pattern then you can set your custom command, shown above. 
+
+|File pattern|Command|
+----------------------
+|'.js'|'node %s'|
+|'.rb'|'ruby %s'|
+|'.go'|'go run %s'|
+|'.erl'|'escrip|'|
+|'.scala'|'scala %s'|
+|'.clj'| 'clojure -M %s'|
+|'.lua'|'lua %s'|
+

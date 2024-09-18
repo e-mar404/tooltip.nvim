@@ -13,7 +13,7 @@ M.win_config = {
 }
 
 M.setup = function (config)
-  M.patterns = config['patterns'] or {}
+  M.patterns = util._default_mappings
   M.styled = config['styled'] or false
 
   M.win_config.title = M.styled and 'output' or ''
@@ -59,7 +59,7 @@ M.show = function ()
   M._run(command)
 
   -- this is needed to let the output finish sending to terminal channel if there are issues then change the delay
-  local delayMS = 1
+  local delayMS = 5
   vim.defer_fn(function()
     if vim.api.nvim_win_is_valid(M.win_id) then
       M._resize()
@@ -72,6 +72,7 @@ M.show = function ()
     end
   })
 end
+
 
 M.close = function ()
   vim.api.nvim_win_close(M.win_id, true)
