@@ -52,13 +52,13 @@ end)
 
 This plugin comes with default mappings so there is as little set up as possible. If you do find your self needing to override the command that gets executed with each file pattern then you can set your custom command, shown above. 
 
-|File pattern|Command|
-----------------------
-|'.js'|'node %s'|
-|'.rb'|'ruby %s'|
-|'.go'|'go run %s'|
-|'.erl'|'escrip|'|
-|'.scala'|'scala %s'|
-|'.clj'| 'clojure -M %s'|
-|'.lua'|'lua %s'|
+|File pattern|Command         |
+|------------|----------------|
+|'.js'       |'node %s'       |
+|'.rb'       |'ruby %s'       |
+|'.go'       |'go run %s'     |
+|'.erl'      |'escript %s'    |
+|'.scala'    |'scala %s'      |
+|'.clj'      | 'clojure -M %s'|
+|'.lua'      |'lua %s'        |
 
