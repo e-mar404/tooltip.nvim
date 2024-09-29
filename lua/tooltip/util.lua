@@ -1,6 +1,6 @@
 local util = {}
 
-util._default_file_patterns = {
+util.default_file_patterns = {
   ['.js'] = 'node %s',
   ['.rb'] = 'ruby %s',
   ['.go'] = 'go run %s',
@@ -8,7 +8,14 @@ util._default_file_patterns = {
   ['.scala'] = 'scala %s',
   ['.clj'] = 'clojure -M %s',
   ['.lua'] = 'lua %s',
+  ['.hs'] = 'runghc %s',
 }
+
+util._override_file_patterns = function (patterns)
+  for pattern, command in pairs(patterns) do
+    util.default_file_patterns[pattern] = command
+  end
+end
 
 util._file_name = function (output_buffer)
   return vim.api.nvim_buf_get_name(output_buffer)
@@ -35,6 +42,8 @@ util._trim_trailing_newline = function (str)
 end
 
 util._command_for_file = function (file, patterns)
+  P(patterns)
+
   local file_type
   for extension in string.gmatch(file, '%.(%w+)') do
     file_type = string.format('.%s', extension)
