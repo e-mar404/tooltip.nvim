@@ -13,11 +13,14 @@ M.win_config = {
 }
 
 M.setup = function (config)
-  M.patterns = util._defaul_file_patterns
   M.styled = config['styled'] or false
 
   M.win_config.title = M.styled and 'output' or ''
   M.win_config.border = M.styled and 'rounded' or 'none'
+
+  if (config['patterns'] ~= nil) then
+    util._override_file_patterns(config['patterns'])
+  end
 end
 
 M._open_win = function ()
@@ -41,7 +44,7 @@ end
 M._resize = function ()
   local lines = vim.api.nvim_buf_get_lines(M.output_buffer, 0, -1, true)
   local width = math.max(util._longest_line(lines), 6)
-  local height = vim.api.nvim_buf_line_count(M.output_buffer)
+  local height = vim.api.nvim_buf_line_count(M.output_buffer) - 1 -- the output always has an extra \n so the -1 takes care of this instead
 
   vim.api.nvim_win_set_config(M.win_id, {
     width = width,
@@ -53,7 +56,7 @@ M.show = function ()
   vim.cmd('w')
 
   local file = util._file_name(0)
-  local command = util._command_for_file(file, M.patterns)
+  local command = util._command_for_file(file, util.default_file_patterns)
 
   M._open_win()
   M._run(command)

@@ -24,31 +24,31 @@ See `:help tooltip.nvim`
 
 ## Setup
 
-There are 2 parts that will need to be configured before using the plugin:
-1. Set up a pattern for the command that will execute each file extension
-2. call the `show()` function that will take the current file, see if there is a pattern set up for it and then execute it. After execution the stdout (or stderr) will be outputed in a new floating window where the cursor is at.
+Only set up that is needed is to set up a keymap to show the tooltip. There is an optional step to set up your own custom commands for a file pattern or if you want a command for a file that is not set up by default. 
+
+To set up file patterns it is passed as a table attribute to the `setup()`. See bellow for example:
 
 Ex. 
 ``` lua
 local tooltip = require('tooltip')
 
-tooltip.setup({
+tooltip.setup {
   patterns = {
     ['.js'] = 'node %s',
     ['.rb'] = 'ruby %s',
     ['.go'] = 'go run %s',
     -- ['file extenstion'] = 'command_to_execute %s' (%s) will be replaced by the file path
-    -- what is set up here will override the default mappings
+    -- what is set up here will override the default mappings if there is already a command set up for that file pattern
   },
-})
+}
 
 -- universal-tooltip keymap (run program)
-vim.keymap.set('n', '<leader>rp', function ()
+vim.keymap.set('n', '<leader><leader>r', function ()
     tooltip.show()
 end)
 ```
 
-### Default Mappings
+### Default File-Command Mappings
 
 This plugin comes with default mappings so there is as little set up as possible. If you do find your self needing to override the command that gets executed with each file pattern then you can set your custom command, shown above. 
 

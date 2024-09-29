@@ -15,14 +15,17 @@ tooltip.setup({config})
               - patterns: (Map) with the file extension as the key and the
                 command to be ran as the value.
                   Note: the value representing the command will be formated 
-                  following regular c printf rules, replacing the %s with the file to be
-                  run. 
+                  following regular c printf rules, replacing the %s with the filepath to be
+                  ran. 
+                  - any file pattern set up here will override default's (look
+                    at |default_file_patterns|)
               - styled: (Boolean) that will set the window border `rounded` and title
                 `output` >
 
     Example.
     
     tooltip.setup({
+      styled = true,
       patterns = {
         [".js"] = "node %s",
         [".rb"] = "ruby %s",
@@ -34,7 +37,7 @@ tooltip.setup({config})
 tooltip.show()
   
   Will get the current file in the buffer of the current window get the
-  command to execute it (if set up with `tooltip.setup()`), run the command
+  command to execute it (if set up with |tooltip.setup()|), run the command
   and output to stdout/stderr to a buffer and then show that buffer at the pos
   the cursor is at.
 
@@ -51,5 +54,21 @@ tooltip.close()
 
   Note: `q` is automatically added as a keymap to the buffer to call
   this function.
+
+                                                       *default_file_patterns*
+default_file_patterns
+
+This plugin comes with default mappings so there is as little set up as possible. If you do find your self needing to override the command that gets executed with each file pattern then you can set your custom command, shown in |tooltip.setup()|
+
+| File pattern | Command          |
+| ------------ | ---------------- |
+| '.js'        | 'node %s'        |
+| '.rb'        | 'ruby %s'        |
+| '.go'        | 'go run %s'      |
+| '.erl'       | 'escript %s'     |
+| '.scala'     | 'scala %s'       |
+| '.clj'       | 'clojure -M %s'  |
+| '.lua'       | 'lua %s'         |
+
 
 vim:tw=78:ts=8:ft=help:norl:
