@@ -1,3 +1,4 @@
+require('tooltip.user-commands')
 local util = require 'tooltip.util'
 
 local M = {}
@@ -18,9 +19,7 @@ M.setup = function (config)
   M.win_config.title = M.styled and 'output' or ''
   M.win_config.border = M.styled and 'rounded' or 'none'
 
-  if (config['patterns'] ~= nil) then
-    util._override_file_patterns(config['patterns'])
-  end
+  util._merge_tables(config['patterns'])
 end
 
 M._open_win = function ()
@@ -56,7 +55,7 @@ M.show = function ()
   vim.cmd('w')
 
   local file = util._file_name(0)
-  local command = util._command_for_file(file, util.default_file_patterns)
+  local command = util._command_for_file(file)
 
   M._open_win()
   M._run(command)

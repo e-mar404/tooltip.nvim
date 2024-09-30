@@ -12,9 +12,20 @@ util.default_file_patterns = {
   ['.py'] = 'python3 %s',
 }
 
-util._override_file_patterns = function (patterns)
-  for pattern, command in pairs(patterns) do
-    util.default_file_patterns[pattern] = command
+util.user_file_patterns = {}
+
+util._merge_tables = function (user_patterns)
+  if user_patterns == nil then
+    util.user_file_patterns = util.default_file_patterns
+    return
+  end
+
+  for pattern, command in pairs(util.default_file_patterns) do
+    util.user_file_patterns[pattern] = user_patterns[pattern] or command
+  end
+
+  for user_pattern, user_command in pairs(user_patterns) do
+    util.user_file_patterns[user_pattern] = util.user_file_patterns[user_patterns] or user_command
   end
 end
 
@@ -38,8 +49,8 @@ util._table_of = function (data, separator)
   return t
 end
 
-util._command_for_file = function (file, patterns)
-  for file_extension, command in pairs(patterns) do
+util._command_for_file = function (file)
+  for file_extension, command in pairs(util.user_file_types) do
     if (string.find(file, file_extension) ~= nil) then
       return string.format(command, file)
     end
