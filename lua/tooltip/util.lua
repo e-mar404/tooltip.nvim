@@ -9,6 +9,7 @@ util.default_file_patterns = {
   ['.clj'] = 'clojure -M %s',
   ['.lua'] = 'lua %s',
   ['.hs'] = 'runghc %s',
+  ['.py'] = 'python3 %s',
 }
 
 util._override_file_patterns = function (patterns)
@@ -37,26 +38,14 @@ util._table_of = function (data, separator)
   return t
 end
 
-util._trim_trailing_newline = function (str)
-  return str:gsub('\n$', '')
-end
-
 util._command_for_file = function (file, patterns)
-  local file_type
-  for extension in string.gmatch(file, '%.(%w+)') do
-    file_type = string.format('.%s', extension)
+  for file_extension, command in pairs(patterns) do
+    if (string.find(file, file_extension) ~= nil) then
+      return string.format(command, file)
+    end
   end
 
-  local pattern = patterns[file_type]
-
-  if not pattern then
-    error('command pattern not set up for this file extension')
-  end
-
-  local fmt_string = string.format(patterns[file_type], file)
-  print(fmt_string)
-
-  return fmt_string
+  error('command pattern not set up for this file extension')
 end
 
 util._longest_line = function (lines)
