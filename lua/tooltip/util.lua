@@ -50,7 +50,7 @@ util._table_of = function (data, separator)
 end
 
 util._command_for_file = function (file)
-  for file_extension, command in pairs(util.user_file_types) do
+  for file_extension, command in pairs(util.user_file_patterns) do
     if (string.find(file, file_extension) ~= nil) then
       return string.format(command, file)
     end

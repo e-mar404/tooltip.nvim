@@ -81,8 +81,4 @@ M.close = function ()
   vim.api.nvim_buf_delete(M.output_buffer, { force = true })
 end
 
-M._clear = function ()
-  M.patterns = {}
-end
-
 return M
