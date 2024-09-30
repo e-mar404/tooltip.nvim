@@ -70,5 +70,9 @@ This plugin comes with default mappings so there is as little set up as possible
 | '.clj'       | 'clojure -M %s'  |
 | '.lua'       | 'lua %s'         |
 
+===============================================================================
+COMMAND                                                      *tooltip.command*
+
+  :TooltipPatterns     show all of the currently set up file patterns set up
 
 vim:tw=78:ts=8:ft=help:norl:
