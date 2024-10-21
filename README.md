@@ -58,7 +58,8 @@ This plugin comes with default mappings so there is as little set up as possible
 |'.rb'       |'ruby %s'       |
 |'.go'       |'go run %s'     |
 |'.erl'      |'escript %s'    |
-|'.scala'    |'scala %s'      |
-|'.clj'      | 'clojure -M %s'|
+|'.scala'    |'scala-cli %s'  |
+|'.clj'      |'clojure -M %s' |
 |'.lua'      |'lua %s'        |
+|'.groovy'   |'groovy %s'     |
 
