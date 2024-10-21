@@ -66,10 +66,13 @@ This plugin comes with default mappings so there is as little set up as possible
 | '.rb'        | 'ruby %s'        |
 | '.go'        | 'go run %s'      |
 | '.erl'       | 'escript %s'     |
-| '.scala'     | 'scala %s'       |
+| '.scala'     | 'scala-cli %s'   |
 | '.clj'       | 'clojure -M %s'  |
 | '.lua'       | 'lua %s'         |
 | '.groovy'    | 'groovy %s'      |
+
+  Note: scala-cli currently seems to be caching errors so running a file after
+  fixing errors might still give compile errors but compile and run fine
 
 ===============================================================================
 USER COMMAND
