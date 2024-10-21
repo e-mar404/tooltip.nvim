@@ -29,7 +29,7 @@ M._open_win = function ()
 end
 
 M._run = function (command)
-  print('running '..command)
+  vim.api.nvim_notify('running '..command, 0, {})
 
   local command_table = util._table_of(command)
 
@@ -41,7 +41,7 @@ M._run = function (command)
   vim.api.nvim_chan_send(M.term_id, obj.stdout)
   vim.api.nvim_chan_send(M.term_id, obj.stderr)
 
-  print('finished command')
+  vim.api.nvim_notify('finished running', 0, {})
 end
 
 M._resize = function ()
@@ -71,6 +71,7 @@ M.show = function ()
       M._resize()
     end
   end, delayMS)
+
 
   vim.api.nvim_buf_set_keymap(M.output_buffer, 'n', 'q', '', {
     callback = function ()
