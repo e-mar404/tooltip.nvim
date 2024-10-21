@@ -5,11 +5,12 @@ util.default_file_patterns = {
   ['.rb'] = 'ruby %s',
   ['.go'] = 'go run %s',
   ['.erl'] = 'escript %s',
-  ['.scala'] = 'scala %s',
+  ['.scala'] = 'scala-cli run %s',
   ['.clj'] = 'clojure -M %s',
   ['.lua'] = 'lua %s',
   ['.hs'] = 'runghc %s',
   ['.py'] = 'python3 %s',
+  ['.groovy'] = 'groovy %s',
 }
 
 util.user_file_patterns = {}
@@ -27,6 +28,20 @@ util._merge_tables = function (user_patterns)
   for user_pattern, user_command in pairs(user_patterns) do
     util.user_file_patterns[user_pattern] = util.user_file_patterns[user_patterns] or user_command
   end
+end
+
+util._table_concat = function (t1,t2)
+  local t = {}
+
+  for _, value in ipairs(t1) do
+    table.insert(t, value)
+  end
+
+  for _, value in ipairs(t2) do
+    table.insert(t, value)
+  end
+
+  return t
 end
 
 util._file_name = function (output_buffer)

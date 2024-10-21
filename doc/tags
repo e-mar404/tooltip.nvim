@@ -1,6 +1,7 @@
+:TooltipPatterns	tooltip.txt	/*:TooltipPatterns*
+:TooltipTempAddPattern	tooltip.txt	/*:TooltipTempAddPattern*
 default_file_patterns	tooltip.txt	/*default_file_patterns*
 tooltip.close()	tooltip.txt	/*tooltip.close()*
-tooltip.command	tooltip.txt	/*tooltip.command*
 tooltip.nvim	tooltip.txt	/*tooltip.nvim*
 tooltip.setup()	tooltip.txt	/*tooltip.setup()*
 tooltip.show()	tooltip.txt	/*tooltip.show()*

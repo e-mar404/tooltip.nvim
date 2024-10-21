@@ -31,4 +31,13 @@ describe('table_of', function ()
 
     assert.are.same(expected, actual)
   end)
+
+  it('separates last newline with out a new entry', function ()
+    local data = 'test\n'
+    local separator = '\n'
+    local expected = { 'test' }
+    local actual = util._table_of(data, separator)
+
+    assert.are.same(expected, actual)
+  end)
 end)
