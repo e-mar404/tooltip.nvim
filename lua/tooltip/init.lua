@@ -29,6 +29,8 @@ M._open_win = function ()
 end
 
 M._run = function (command)
+  print('running '..command)
+
   local command_table = util._table_of(command)
 
   local obj = vim.system(command_table, {
@@ -38,6 +40,8 @@ M._run = function (command)
 
   vim.api.nvim_chan_send(M.term_id, obj.stdout)
   vim.api.nvim_chan_send(M.term_id, obj.stderr)
+
+  print('finished command')
 end
 
 M._resize = function ()
