@@ -10,6 +10,7 @@ util.default_file_patterns = {
   ['.lua'] = 'lua %s',
   ['.hs'] = 'runghc %s',
   ['.py'] = 'python3 %s',
+  ['.groovy'] = 'groovy %s',
 }
 
 util.user_file_patterns = {}

@@ -69,10 +69,17 @@ This plugin comes with default mappings so there is as little set up as possible
 | '.scala'     | 'scala %s'       |
 | '.clj'       | 'clojure -M %s'  |
 | '.lua'       | 'lua %s'         |
+| '.groovy'    | 'groovy %s'      |
 
 ===============================================================================
-COMMAND                                                      *tooltip.command*
+USER COMMAND
 
-  :TooltipPatterns     show all of the currently set up file patterns set up
+  *:TooltipPatterns*                      show all of the currently set up file 
+                                        patterns set up
+
+  *:TooltipTempAddPattern* <command>      will temporarily (until the current
+                                        neovim insatnce is closed) add an 
+                                        assosiation between the command and the
+                                        current file extention that is open
 
 vim:tw=78:ts=8:ft=help:norl:
