@@ -30,6 +30,20 @@ util._merge_tables = function (user_patterns)
   end
 end
 
+util._table_concat = function (t1,t2)
+  local t = {}
+
+  for _, value in ipairs(t1) do
+    table.insert(t, value)
+  end
+
+  for _, value in ipairs(t2) do
+    table.insert(t, value)
+  end
+
+  return t
+end
+
 util._file_name = function (output_buffer)
   return vim.api.nvim_buf_get_name(output_buffer)
 end

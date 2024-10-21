@@ -7,10 +7,13 @@ M.win_config = {
   relative = 'cursor',
   row = 1,
   col = 0,
-  width = 100,
-  height = 2,
   anchor = 'NW',
   style = 'minimal',
+}
+
+M.output_details = {
+  max_width = 1,
+  height = 1,
 }
 
 M.setup = function (config)
@@ -22,12 +25,6 @@ M.setup = function (config)
   util._merge_tables(config['patterns'])
 end
 
-M._open_win = function ()
-  M.output_buffer = vim.api.nvim_create_buf(true, true)
-  M.win_id = vim.api.nvim_open_win(M.output_buffer, true, M.win_config)
-  M.term_id = vim.api.nvim_open_term(M.output_buffer, {})
-end
-
 M._run = function (command)
   vim.api.nvim_notify('running '..command, 0, {})
 
@@ -35,24 +32,41 @@ M._run = function (command)
 
   local obj = vim.system(command_table, {
     text = true,
-    detach = true,
+    detach = false,
   }):wait()
 
-  vim.api.nvim_chan_send(M.term_id, obj.stdout)
-  vim.api.nvim_chan_send(M.term_id, obj.stderr)
+  local stdout_table = {}
+  local stderr_table = {}
+
+  if obj.stdout ~= "" then
+    stdout_table = util._table_of(obj.stdout, '\n')
+  end
+
+  if obj.stderr ~= "" then
+    stderr_table = util._table_of(obj.stderr, '\n')
+  end
+
+  local merged_tables = util._table_concat(stdout_table, stderr_table)
+
+  M.output_details.max_width = math.max(util._longest_line(merged_tables), 6)
+  M.output_details.height = #merged_tables
 
   vim.api.nvim_notify('finished running', 0, {})
+
+  return table.concat(merged_tables, '\n')
 end
 
-M._resize = function ()
-  local lines = vim.api.nvim_buf_get_lines(M.output_buffer, 0, -1, true)
-  local width = math.max(util._longest_line(lines), 6)
-  local height = vim.api.nvim_buf_line_count(M.output_buffer) - 1 -- the output always has an extra \n so the -1 takes care of this instead
+M._open_win = function ()
+  M.win_config.width = M.output_details.max_width
+  M.win_config.height = M.output_details.height
 
-  vim.api.nvim_win_set_config(M.win_id, {
-    width = width,
-    height = height,
-  })
+  M.output_buffer = vim.api.nvim_create_buf(true, true)
+  M.win_id = vim.api.nvim_open_win(M.output_buffer, true, M.win_config)
+  M.term_id = vim.api.nvim_open_term(M.output_buffer, {})
+end
+
+M._write = function(data)
+  vim.api.nvim_chan_send(M.term_id, data)
 end
 
 M.show = function ()
@@ -60,18 +74,10 @@ M.show = function ()
 
   local file = util._file_name(0)
   local command = util._command_for_file(file)
+  local output = M._run(command)
 
   M._open_win()
-  M._run(command)
-
-  -- this is needed to let the output finish sending to terminal channel if there are issues then change the delay
-  local delayMS = 5
-  vim.defer_fn(function()
-    if vim.api.nvim_win_is_valid(M.win_id) then
-      M._resize()
-    end
-  end, delayMS)
-
+  M._write(output)
 
   vim.api.nvim_buf_set_keymap(M.output_buffer, 'n', 'q', '', {
     callback = function ()
@@ -79,7 +85,6 @@ M.show = function ()
     end
   })
 end
-
 
 M.close = function ()
   vim.api.nvim_win_close(M.win_id, true)
