@@ -1,3 +1,4 @@
+local util = require 'tooltip.util'
 
 local M = {}
 
