@@ -1,7 +1,8 @@
-require('tooltip.user-commands')
-local util = require 'tooltip.util'
 
 local M = {}
+
+local MinWidth = 6
+local MinHeight = 1
 
 M.win_config = {
   relative = 'cursor',
@@ -9,11 +10,6 @@ M.win_config = {
   col = 0,
   anchor = 'NW',
   style = 'minimal',
-}
-
-M.output_details = {
-  max_width = 1,
-  height = 1,
 }
 
 M.setup = function (config)
@@ -38,18 +34,18 @@ M._run = function (command)
   local stdout_table = {}
   local stderr_table = {}
 
-  if obj.stdout ~= "" then
+  if obj.stdout ~= '' then
     stdout_table = util._table_of(obj.stdout, '\n')
   end
 
-  if obj.stderr ~= "" then
+  if obj.stderr ~= '' then
     stderr_table = util._table_of(obj.stderr, '\n')
   end
 
   local merged_tables = util._table_concat(stdout_table, stderr_table)
 
-  M.output_details.max_width = math.max(util._longest_line(merged_tables), 6)
-  M.output_details.height = #merged_tables
+  M.win_config.width = math.max(util._longest_line(merged_tables), MinWidth)
+  M.win_config.height = math.max(#merged_tables, MinHeight)
 
   vim.api.nvim_notify('finished running', 0, {})
 
@@ -57,9 +53,6 @@ M._run = function (command)
 end
 
 M._open_win = function ()
-  M.win_config.width = M.output_details.max_width
-  M.win_config.height = M.output_details.height
-
   M.output_buffer = vim.api.nvim_create_buf(true, true)
   M.win_id = vim.api.nvim_open_win(M.output_buffer, true, M.win_config)
   M.term_id = vim.api.nvim_open_term(M.output_buffer, {})
