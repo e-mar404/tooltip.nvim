@@ -1,3 +1,4 @@
+require 'tooltip.user-commands'
 local util = require 'tooltip.util'
 
 local M = {}
