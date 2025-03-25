@@ -13,3 +13,4 @@ Tests to be done
 ✓ gets an empty string and returns a table with a single empty string 
 ✓ defaults to using the space as separator
 ✓ is able to separate by new lines
+✓ keeps a space for duplicate newlines

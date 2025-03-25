@@ -56,9 +56,29 @@ util._table_of = function (data, separator)
   separator = separator or '%s'
 
   local t = {}
+  local last_pos = 1
 
-  for str in string.gmatch(data, '([^'..separator..']+)') do
-    table.insert(t, str)
+  while last_pos <= #data do
+      while last_pos <= #data do
+
+    local start_index, end_index = string.find(data, separator, last_pos)
+    local next_word = ''
+
+    if not start_index then
+      if last_pos == start_index then
+        table.insert(t, next_word)
+        break
+      end
+
+      next_word = string.sub(data, last_pos, #data)
+      table.insert(t, next_word)
+      break
+    end
+
+    next_word = string.sub(data, last_pos, start_index - 1)
+    table.insert(t, next_word)
+    last_pos = end_index + 1
+    end
   end
 
   return t

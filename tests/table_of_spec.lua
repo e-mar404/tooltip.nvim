@@ -40,4 +40,13 @@ describe('table_of', function ()
 
     assert.are.same(expected, actual)
   end)
+
+  it('keeps a space for duplicate newlines', function ()
+    local data = 'test\n\nmultiple newlines\n\n'
+    local separator = '\n'
+    local expected = { 'test', '', 'multiple newlines', '' }
+    local actual = util._table_of(data, separator)
+
+    assert.are.same(expected, actual)
+  end)
 end)
