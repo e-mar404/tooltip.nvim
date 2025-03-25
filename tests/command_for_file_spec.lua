@@ -21,7 +21,7 @@ describe('command_for_file()', function ()
     local file = 'test.js'
     local command = util._command_for_file(file)
 
-    assert.equal('node test.js', command)
+    assert.are.same({'node', 'test.js'}, command)
   end)
 
   it('return error for file with extension pattern: not set up', function ()
@@ -42,10 +42,10 @@ describe('command_for_file()', function ()
     }
 
     local file = '/path/to.file/with/extension.js'
-    local expected = string.format('node %s', file)
+    local expected = {'node', file}
     local command = util._command_for_file(file)
 
-    assert.equal(expected, command)
+    assert.are.same(expected, command)
   end)
 
   it('return error given a file with extension pattern not set up and a path that has multiple "."', function ()
