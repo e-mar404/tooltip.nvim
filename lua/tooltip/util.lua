@@ -59,7 +59,6 @@ util._table_of = function (data, separator)
   local last_pos = 1
 
   while last_pos <= #data do
-      while last_pos <= #data do
 
     local start_index, end_index = string.find(data, separator, last_pos)
     local next_word = ''
@@ -78,7 +77,6 @@ util._table_of = function (data, separator)
     next_word = string.sub(data, last_pos, start_index - 1)
     table.insert(t, next_word)
     last_pos = end_index + 1
-    end
   end
 
   return t

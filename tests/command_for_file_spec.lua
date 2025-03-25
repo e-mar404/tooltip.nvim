@@ -8,7 +8,6 @@ describe('command_for_file()', function ()
   before_each(function ()
     util = require 'tooltip.util'
     tooltip = require 'tooltip'
-
   end)
 
   it('return command for file with extension pattern: set up', function ()
