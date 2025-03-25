@@ -87,7 +87,13 @@ end
 util._command_for_file = function (file)
   for file_extension, command in pairs(util.user_file_patterns) do
     if (string.find(file, file_extension) ~= nil) then
-      return string.format(command, file)
+      local t = {}
+
+      for str in string.gmatch(string.format(command, file), '([^%s]+)') do
+        table.insert(t, str)
+      end
+
+      return t
     end
   end
 

@@ -24,11 +24,9 @@ M.setup = function (config)
 end
 
 M._run = function (command)
-  vim.api.nvim_notify('running '..command, 0, {})
+  vim.api.nvim_notify('running file...', 0, {})
 
-  local command_table = util._table_of(command)
-
-  local obj = vim.system(command_table, {
+  local obj = vim.system(command, {
     text = true,
     detach = false,
   }):wait()
