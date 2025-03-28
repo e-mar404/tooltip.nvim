@@ -63,3 +63,31 @@ This plugin comes with default mappings so there is as little set up as possible
 |'.lua'      |'lua %s'        |
 |'.groovy'   |'groovy %s'     |
 
+
+## Opportunity to extend the plugin
+
+I have 2 ideas on how to extend/refactor this plug in: 
+
+1. instead of using file extensions it might be little cleaner to use file types
+   so it is more expressive and instead of saying `.js = node %s` it can be
+   `javascript = node %s`. It might be easier to use file extensions since I
+   always know what the file extension is but i might not know the file type.
+   Idk i'll see but for now i like file type better.
+
+2. support multiple file commands to run and whenever there are multiple
+   commands list them out to choose before running. This would need the set up
+   file to have an some type of 'override_default' flag to see if the command
+   being set up should be treated as the new default of it is just a command
+   being added
+
+3. once there is support for multiple file commands it is possible to have a dot
+    file in the current directory that specifies how to run a file and
+    if there are multiple file commands for each file type then show a list of
+    the commands to run and select one to run.
+    
+    - example having the option to run one of the following
+    
+    - '.go' = run ./run/some/predetermined/path
+    - '.go' = run main.go
+    - '.go' = run .
+    - wtv is the default for that file extension if there is one
